@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "mailogleit"
+version = "0.1.0"
+description = "A simple-way tool for e-mail OSINT."
+authors = ["Dinçer Tekin <dincertekin@protonmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+requests = "^2.32.3"
+rich = "^13.9.2"
+pyfiglet = "^1.0.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
