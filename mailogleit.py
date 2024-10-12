@@ -1,7 +1,14 @@
+#!/usr/bin/python3
+import sys
+import time
 from rich import print as rprint
 from rich.prompt import Prompt
 from rich.prompt import Confirm
 from pyfiglet import Figlet
+from tabulate import tabulate
+
+# ./modules/*
+from modules.instagram import Instagram
 
 def main():
     f = Figlet(font='slant')
@@ -16,6 +23,21 @@ def main():
         else:
             rprint("[red][!][/red] [white]Please enter the email again.[/white]")
 
-    rprint("[bold green]Scanning the email...[/bold green]")
+    rprint("[bold green]Scanning the e-mail...[/bold green]")
+
+    animation = "|/-\\"
+    start_time = time.time()
+    while True:
+        for i in range(4):
+            time.sleep(0.2)
+            sys.stdout.write("\r" + animation[i % len(animation)])
+            sys.stdout.flush()
+        if time.time() - start_time > 10:
+            break
+    sys.stdout.write("\r")
+
+    print(tabulate([[email]], headers=["E-mail"], tablefmt="grid"))
+
+    Instagram.run_scan(email)
 
 main()
