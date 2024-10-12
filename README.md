@@ -22,7 +22,7 @@ poetry install
 python mailogleit.py
 ```
 
-# Contributions
+## Contributions
 Contributions are very welcome! We can improve this tool together! 😊
 
 ## License
