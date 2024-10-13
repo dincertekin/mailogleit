@@ -28,5 +28,5 @@ Contributions are very welcome! We can improve this tool together! 😊
 ## License
 This project is licensed under [MIT License](LICENSE).
 
-## Inspiration
+## Thanks
 This project is inspired by megadose's [holehe](https://github.com/megadose/holehe).
