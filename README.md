@@ -26,7 +26,7 @@ python mailogleit.py
 Contributions are very welcome! We can improve this tool together! 😊
 
 ## License
-This project uses [MIT License](https://github.com/dincertekin/mailogleit/README.md).
+This project is licensed under [MIT License](LICENSE).
 
 ## Inspiration
 This project is inspired by megadose's [holehe](https://github.com/megadose/holehe).
