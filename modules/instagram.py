@@ -60,14 +60,14 @@ class Instagram:
                 if 'errors' in check_data:
                     if 'email' in check_data['errors']:
                         if check_data['errors']['email'][0]['code'] == 'email_is_taken':
-                            rprint(f"[green][+][/green] [white]Instagram: Email is already registered.[/white]")
+                            rprint(f"[green][+][/green] [white]Instagram[/white]")
                         elif "email_sharing_limit" in str(check_data["errors"]):
-                            rprint(f"[green][+][/green] [white]Instagram: Email hit the sharing limit, likely registered.[/white]")
+                            rprint(f"[green][+][/green] [white]Instagram[/white]")
                         else:
-                            rprint(f"[red][-][/red] [white]Instagram: Email does not exist.[/white]")
+                             rprint(f"[red][-][/red] [white]Instagram[/white]")
                 else:
-                    rprint(f"[red][-][/red] [white]Instagram: Email does not exist.[/white]")
+                     rprint(f"[red][-][/red] [white]Instagram[/white]")
             else:
                 rprint(f"[red][-][/red] [white]Instagram: Request failed with status code {check_response.status_code}.[/white]")
         except Exception as e:
-            rprint(f"[red]Error occurred on Instagram module: [white]{str(e)}[/white][/red]")
+            rprint(f"[red][!] Error occurred on Instagram module: [white]{str(e)}[/white][/red]")
