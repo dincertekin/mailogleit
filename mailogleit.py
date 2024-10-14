@@ -9,6 +9,8 @@ import time
 
 # ./modules/*
 from modules.instagram import Instagram
+from modules.snapchat import Snapchat
+from modules.spotify import Spotify
 
 def main():
     f = Figlet(font='slant')
@@ -39,5 +41,7 @@ def main():
     print(tabulate([[email]], headers=["E-mail"], tablefmt="grid"))
 
     Instagram.run_scan(email)
+    Snapchat.run_scan(email)
+    Spotify.run_scan(email)
 
 main()

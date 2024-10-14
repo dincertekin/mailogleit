@@ -56,7 +56,6 @@ class Instagram:
 
             if check_response.status_code == 200:
                 check_data = check_response.json()
-                print(check_data)
                 if 'errors' in check_data:
                     if 'email' in check_data['errors']:
                         if check_data['errors']['email'][0]['code'] == 'email_is_taken':
