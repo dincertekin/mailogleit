@@ -1,11 +1,11 @@
 #!/usr/bin/python3
+from pyfiglet import Figlet
+from rich import print as rprint
+from rich.prompt import Confirm
+from rich.prompt import Prompt
+from tabulate import tabulate
 import sys
 import time
-from rich import print as rprint
-from rich.prompt import Prompt
-from rich.prompt import Confirm
-from pyfiglet import Figlet
-from tabulate import tabulate
 
 # ./modules/*
 from modules.instagram import Instagram
@@ -32,7 +32,7 @@ def main():
             time.sleep(0.2)
             sys.stdout.write("\r" + animation[i % len(animation)])
             sys.stdout.flush()
-        if time.time() - start_time > 10:
+        if time.time() - start_time > 5: # in seconds
             break
     sys.stdout.write("\r")
 
