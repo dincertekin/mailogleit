@@ -1,6 +1,9 @@
 # mailogleit
 A simple-way tool for e-mail OSINT.
 
+## Screenshots
+![](https://i.imgur.com/OINeX9a.png)
+
 ## Installation
 There is two different ways to install mailogleit, using pypoetry and using only pip.
 
