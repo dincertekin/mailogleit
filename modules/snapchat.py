@@ -6,8 +6,6 @@ import requests
 class Snapchat:
     @staticmethod
     def run_scan(email):
-        rprint("[red][!][/red] Snapchat: [white]Work in progress...[/white]")
-        """
         session = requests.Session()
         url = "https://bitmoji.api.snapchat.com/api/user/find"
 
@@ -25,13 +23,15 @@ class Snapchat:
 
         try:
             response = session.post(url, headers=headers, json=data)
+            response.raise_for_status()
 
             if '{"account_type":"snapchat"}' in response.text:
                 rprint(f"[green][+][/green] [white]Snapchat[/white]")
-
+                return "Snapchat account found"
             else:
                 rprint(f"[red][-][/red] [white]Snapchat[/white]")
+                return "No Snapchat account found"
 
         except Exception as e:
             rprint(f"[red][!] Error occurred on Snapchat module: [white]{str(e)}[/white][/red]")
-        """
+            return f"Error occurred: {str(e)}"
