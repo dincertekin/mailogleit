@@ -9,6 +9,7 @@ class Instagram:
     @staticmethod
     def run_scan(email):
         session = requests.Session()
+        
         url_login = "https://www.instagram.com/accounts/login/"
         url_check = "https://www.instagram.com/api/v1/web/accounts/web_create_ajax/attempt/"
 
@@ -16,6 +17,7 @@ class Instagram:
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36',
             'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36',
         ]
+
         headers = {
             'User-Agent': random.choice(user_agents),
             'Accept': 'application/json, text/plain, */*',
@@ -37,13 +39,11 @@ class Instagram:
                         break
 
                 if not token:
-                    rprint("[red]Error:[/red] CSRF token not found in Instagram login page.")
-                    return "CSRF token not found"
+                    return rprint("[red]Instagram:[/red] CSRF token not found in login page!")
                 
                 headers["x-csrftoken"] = token
             else:
-                rprint(f"[red][-][/red] Failed to retrieve Instagram login page.")
-                return "Failed to retrieve Instagram login page"
+                return rprint(f"[red]Instagram:[/red] Failed to retrieve login page!")
 
             data = {
                 'email': email,
@@ -52,27 +52,21 @@ class Instagram:
                 'opt_into_one_tap': 'false'
             }
 
-            check_response = session.post(url_check, headers=headers, data=data)
+            check_response = session.post(url_check, headers=headers, data=data, timeout=10)
 
             if check_response.status_code == 200:
                 check_data = check_response.json()
                 if 'errors' in check_data:
                     if 'email' in check_data['errors']:
                         if check_data['errors']['email'][0]['code'] == 'email_is_taken':
-                            rprint(f"[green][+][/green] [white]Instagram[/white]")
-                            return "Email is taken"
+                            return rprint(f"[green][+][/green] [white]Instagram[/white]")
                         elif "email_sharing_limit" in str(check_data["errors"]):
-                            rprint(f"[green][+][/green] [white]Instagram[/white]")
-                            return "Email sharing limit reached"
+                            return rprint(f"[green][+][/green] [white]Instagram[/white] [blue](sharing limit reached)[/blue]")
                         else:
-                            rprint(f"[red][-][/red] [white]Instagram[/white]")
-                            return "Email error"
+                            return rprint(f"[red][-][/red] [white]Instagram[/white]")
                 else:
-                    rprint(f"[red][-][/red] [white]Instagram[/white]")
-                    return "No errors found"
+                    return rprint(f"[red][-][/red] [white]Instagram[/white]")
             else:
-                rprint(f"[red][-][/red] [white]Instagram: Request failed with status code {check_response.status_code}.[/white]")
-                return f"Request failed with status code {check_response.status_code}"
+                return rprint(f"[red]Instagram:[/red] [white]Request failed with status code {check_response.status_code}.[/white]")
         except Exception as e:
-            rprint(f"[red][!] Error occurred on Instagram module: [white]{str(e)}[/white][/red]")
-            return f"Error occurred: {str(e)}"
+            return rprint(f"[red]Instagram:[/red] [white]{str(e)}[/white]")

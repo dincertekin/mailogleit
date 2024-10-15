@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 from rich import print as rprint
-import random
 import requests
 
 class Spotify:
@@ -13,18 +12,15 @@ class Spotify:
         }
 
         try:
-            response = requests.get(url, headers=headers)
+            response = requests.get(url, headers=headers, timeout=10)
             response.raise_for_status()
 
             data = response.json()
 
             if data.get("status") == 20:
-                rprint("[green][+][/green] [white]Spotify[/white]")
-                return "Spotify account found"
+                return rprint("[green][+][/green] [white]Spotify[/white]")
             else:
-                rprint("[red][-][/red] [white]Spotify[/white]")
-                return "No Spotify account found"
+                return rprint("[red][-][/red] [white]Spotify[/white]")
 
-        except requests.RequestException as e:
-            rprint(f"[red][!] Error occurred on Spotify module: [white]{str(e)}[/white][/red]")
-            return f"Error occurred: {str(e)}"
+        except Exception as e:
+            return rprint(f"[red]Spotify:[/red] [white]{str(e)}[/white]")
