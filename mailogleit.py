@@ -1,11 +1,10 @@
-#!/usr/bin/python3
-from pyfiglet import Figlet
 from rich import print as rprint
 from rich.prompt import Confirm
 from rich.prompt import Prompt
 from tabulate import tabulate
 import sys
 import time
+from pyfiglet import Figlet
 
 # ./modules/*
 from modules.instagram import Instagram
@@ -18,30 +17,26 @@ def main():
 
     while True:
         email = Prompt.ask("[blue][*][/blue] [white]Enter an e-mail address to scan[/white]")
-        email_confirm = Confirm.ask(f"[green]{email}[/green] is that correct?", default=True, case_sensitive=False)
+        email_confirm = Prompt.ask(f"[green]{email}[/green] is that correct? (y/n)", default="y")
 
-        if email_confirm:
+        if email_confirm.lower() in ["y", "yes"]:
             break
         else:
             rprint("[red][!][/red] [white]Please enter the email again.[/white]")
 
     rprint("[bold green]Scanning the e-mail...[/bold green]")
 
-    animation = "|/-\\"
-    start_time = time.time()
-    while True:
-        for i in range(4):
-            time.sleep(0.2)
-            sys.stdout.write("\r" + animation[i % len(animation)])
-            sys.stdout.flush()
-        if time.time() - start_time > 5: # in seconds
-            break
-    sys.stdout.write("\r")
+    # Scan the email with Instagram
+    instagram_result = Instagram.run_scan(email)
+    rprint(f"[bold blue]Instagram:[/bold blue] {instagram_result}")
 
-    print(tabulate([[email]], headers=["E-mail"], tablefmt="grid"))
+    # Scan the email with Snapchat
+    snapchat_result = Snapchat.run_scan(email)
+    rprint(f"[bold blue]Snapchat:[/bold blue] {snapchat_result}")
 
-    Instagram.run_scan(email)
-    Snapchat.run_scan(email)
-    Spotify.run_scan(email)
+    # Scan the email with Spotify
+    spotify_result = Spotify.run_scan(email)
+    rprint(f"[bold blue]Spotify:[/bold blue] {spotify_result}")
 
-main()
+if __name__ == "__main__":
+    main()

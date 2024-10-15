@@ -38,12 +38,12 @@ class Instagram:
 
                 if not token:
                     rprint("[red]Error:[/red] CSRF token not found in Instagram login page.")
-                    return
+                    return "CSRF token not found"
                 
                 headers["x-csrftoken"] = token
             else:
                 rprint(f"[red][-][/red] Failed to retrieve Instagram login page.")
-                return
+                return "Failed to retrieve Instagram login page"
 
             data = {
                 'email': email,
@@ -60,13 +60,19 @@ class Instagram:
                     if 'email' in check_data['errors']:
                         if check_data['errors']['email'][0]['code'] == 'email_is_taken':
                             rprint(f"[green][+][/green] [white]Instagram[/white]")
+                            return "Email is taken"
                         elif "email_sharing_limit" in str(check_data["errors"]):
                             rprint(f"[green][+][/green] [white]Instagram[/white]")
+                            return "Email sharing limit reached"
                         else:
-                             rprint(f"[red][-][/red] [white]Instagram[/white]")
+                            rprint(f"[red][-][/red] [white]Instagram[/white]")
+                            return "Email error"
                 else:
-                     rprint(f"[red][-][/red] [white]Instagram[/white]")
+                    rprint(f"[red][-][/red] [white]Instagram[/white]")
+                    return "No errors found"
             else:
                 rprint(f"[red][-][/red] [white]Instagram: Request failed with status code {check_response.status_code}.[/white]")
+                return f"Request failed with status code {check_response.status_code}"
         except Exception as e:
             rprint(f"[red][!] Error occurred on Instagram module: [white]{str(e)}[/white][/red]")
+            return f"Error occurred: {str(e)}"

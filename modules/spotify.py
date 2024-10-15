@@ -20,8 +20,11 @@ class Spotify:
 
             if data.get("status") == 20:
                 rprint("[green][+][/green] [white]Spotify[/white]")
+                return "Spotify account found"
             else:
                 rprint("[red][-][/red] [white]Spotify[/white]")
+                return "No Spotify account found"
 
         except requests.RequestException as e:
             rprint(f"[red][!] Error occurred on Spotify module: [white]{str(e)}[/white][/red]")
+            return f"Error occurred: {str(e)}"
