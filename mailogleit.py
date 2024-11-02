@@ -1,14 +1,13 @@
 #!/usr/bin/python3
 from pyfiglet import Figlet
 from rich import print as rprint
-from rich.prompt import Confirm
 from rich.prompt import Prompt
 from tabulate import tabulate
+import argparse
+import importlib
 import os
 import sys
 import time
-import argparse
-import importlib
 
 # ./modules/*
 def load_modules():
@@ -69,7 +68,7 @@ def main():
             rprint(f"[red]Error:[/red] [white]Module '{args.module}' not found![/white]")
             sys.exit(1)
     else:
-        for module_class in module_mapping.items():
+        for module_name, module_class in module_mapping.items():
             module_instance = module_class()
             module_instance.run_scan(args.mail)
 
