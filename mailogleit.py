@@ -9,6 +9,8 @@ import os
 import sys
 import time
 
+print("test")
+
 # ./modules/*
 def load_modules():
     module_mapping = {}
