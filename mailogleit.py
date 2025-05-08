@@ -9,8 +9,6 @@ import os
 import sys
 import time
 
-print("test")
-
 # ./modules/*
 def load_modules():
     module_mapping = {}
@@ -35,17 +33,17 @@ def main():
     parser.add_argument('-m', '--module', help='Specify the module to use (e.g., instagram, snapchat, spotify)')
     parser.add_argument('mail', help='Email address to scan')
     args = parser.parse_args()
-    
+
     email_confirm = Prompt.ask(f"[green]{args.mail}[/green] is that correct? [pink](y/n)[/pink]", default="y")
     if email_confirm.lower() not in ["y", "yes"]:
         rprint("[red]Error:[/red] [white]Please run the program again with the correct email.[/white]")
         sys.exit(1)
-    
+
     f = Figlet(font='slant')
     print(f.renderText('mailogleit'))
 
     rprint("[bold green]Scanning the e-mail...[/bold green]")
-    
+
     animation = "|/-\\"
     start_time = time.time()
     while True:
@@ -56,9 +54,9 @@ def main():
         if time.time() - start_time > 3: # Run for 3 seconds
             break
     sys.stdout.write("\r")
-    
+
     print(tabulate([[args.mail]], headers=["E-mail"], tablefmt="grid"))
-    
+
     module_mapping = load_modules()
     if args.module:
         if args.module in module_mapping:

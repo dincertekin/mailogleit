@@ -28,9 +28,12 @@ class Snapchat:
             response.raise_for_status()
 
             if '{"account_type":"snapchat"}' in response.text:
-                return rprint(f"[green][+][/green] [white]Snapchat[/white]")
+                rprint(f"[green][+][/green] [white]Snapchat[/white]")
+                return True
             else:
-                return rprint(f"[red][-][/red] [white]Snapchat[/white]")
+                rprint(f"[red][-][/red] [white]Snapchat[/white]")
+                return False
 
         except Exception as e:
-            return rprint(f"[red]Snapchat:[/red] [white]{str(e)}[/white]")
+            rprint(f"[red]Snapchat:[/red] [white]{str(e)}[/white]")
+            return False

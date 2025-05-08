@@ -7,14 +7,9 @@ class Github:
     @staticmethod
     def run_scan(email):
         session = requests.Session()
-        
-        url_login = "https://github.com/join"
-        url_check = "https://github.com/signup_check/email"
 
-        token_regex = re.compile(
-            r'<input[^>]+name="authenticity_token"[^>]+value="([^"]+)"'
-        )
-        
+        url = "https://github.com/signup_check/email"
+
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36',
             'Accept': 'application/json, text/plain, */*',
@@ -24,27 +19,49 @@ class Github:
             'Connection': 'keep-alive',
         }
 
-        response = session.get(url_login, headers=headers)
-        if response.status_code != 200:
-            return rprint(f"[red]GitHub:[/red] Failed to retrieve join page!")
-
-        match = token_regex.search(response.text)
-        if not match:
-            return rprint(f"[red]GitHub:[/red] CSRF token not found!")
-
-        email_token = match.group(1)
+        csrf_token = Github.get_csrf_token(session, headers)
 
         data = {
             "value": email,
-            "authenticity_token": email_token,
+            "authenticity_token": csrf_token,
         }
-        check_response = session.post(url_check, data=data)
 
-        if check_response.status_code == 422:
-            return rprint(f"[green][+][/green] [white]GitHub[/white]")
-        elif check_response.status_code == 200:
-            return rprint(f"[red][-][/red] [white]GitHub[/white]")
-        elif check_response.status_code == 429:
-            return rprint(f"[red]GitHub:[/red] Too many requests.")
-        else:
-            return rprint(f"[red]GitHub:[/red] Request failed with status code {check_response.status_code}.")
+        try:
+            response = session.post(url, data=data)
+            if response.status_code == 422:
+                rprint(f"[green][+][/green] [white]GitHub[/white]")
+                return True
+            elif response.status_code == 200:
+                rprint(f"[red][-][/red] [white]GitHub[/white]")
+                return False
+            elif response.status_code == 429:
+                rprint(f"[red]GitHub:[/red] Too many requests.")
+                return False
+            else:
+                rprint(f"[red]GitHub:[/red] Request failed with status code {response.status_code}.")
+                return False
+
+        except Exception as e:
+            rprint(f"[red]GitHub:[/red] {str(e)}")
+            return False
+
+    @staticmethod
+    def get_csrf_token(session, headers):
+        csrf_token_url = "https://github.com/join"
+
+        csrf_token_regex = re.compile(
+            r'<input[^>]+name="authenticity_token"[^>]+value="([^"]+)"'
+        )
+
+        response = session.get(csrf_token_url, headers=headers)
+        if response.status_code != 200:
+            rprint(f"[red]GitHub:[/red] Failed to retrieve join(sign up) page!")
+            return False
+
+        match = csrf_token_regex.search(response.text)
+        if not match:
+            rprint(f"[red]GitHub:[/red] CSRF token not found!")
+            return False
+
+        csrf_token = match.group(1)
+        return csrf_token

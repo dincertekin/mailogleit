@@ -18,9 +18,12 @@ class Spotify:
             data = response.json()
 
             if data.get("status") == 20:
-                return rprint("[green][+][/green] [white]Spotify[/white]")
+                rprint("[green][+][/green] [white]Spotify[/white]")
+                return True
             else:
-                return rprint("[red][-][/red] [white]Spotify[/white]")
+                rprint("[red][-][/red] [white]Spotify[/white]")
+                return False
 
         except Exception as e:
-            return rprint(f"[red]Spotify:[/red] [white]{str(e)}[/white]")
+            rprint(f"[red]Spotify:[/red] [white]{str(e)}[/white]")
+            return False
