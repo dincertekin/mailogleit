@@ -1,5 +1,5 @@
 # mailogleit
-Mailogleit is an OSINT tool that helps find email addresses on websites like GitHub, Spotify, Instagram, and Snapchat. It allows users to create custom modules to search for emails easily. The name "Mailogleit" comes from "mail" and "Google it," showing that it searches for email information online. This tool is useful for gathering open-source intelligence in a simple way.
+Mailogleit is an OSINT tool that helps find email addresses on websites like GitHub, Spotify, Instagram, and Snapchat. It allows users to create custom modules to search for emails easily. The name "Mailogleit" comes from "mail" and "Google it," showing that it searches for email information online. This tool is useful for gathering open-source intelligence in a simple way.  
 **NOTE:** This tool is designed for educational purposes only, author is not responsible for illegal uses.
 
 ## Screenshots
