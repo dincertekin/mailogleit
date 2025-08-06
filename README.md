@@ -3,7 +3,7 @@ Mailogleit is an OSINT tool that helps find email addresses on websites like Git
 **NOTE:** This tool is designed for educational purposes only, author is not responsible for illegal uses.
 
 ## Screenshots
-![](https://i.imgur.com/8F4Bolq.png)
+![mailogleit screenshot](images/screenshot.png)
 
 ## Installation
 There is two different ways to install mailogleit, using pypoetry and using only pip.
